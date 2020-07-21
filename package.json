@@ -1,0 +1,23 @@
+{
+  "name": "onboard-barbara-teixeira",
+  "version": "1.0.0",
+  "description": "## Description   This project has the objective to make me (Babi) learn about JS, TypeScript and GIT.",
+  "main": "index.js",
+  "dependencies": {
+    "typescript": "^3.9.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/indigotech/onboard-barbara-teixeira.git"
+  },
+  "author": "Babi XD",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/indigotech/onboard-barbara-teixeira/issues"
+  },
+  "homepage": "https://github.com/indigotech/onboard-barbara-teixeira#readme"
+}

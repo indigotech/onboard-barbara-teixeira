@@ -1,0 +1,12 @@
+# Dependencies
+node_modules/
+
+# Editors
+.idea/
+.vs/
+.vscode/
+.DS_Store
+
+#Outputs
+dist/
+build/
