@@ -1,4 +1,4 @@
-# The Best Project in the World Title
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Description
   This project has the objective to make me (Babi) learn about JS, TypeScript and GIT.
