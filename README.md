@@ -7,6 +7,7 @@
 Require:
   - `npm: '6.9.0'`
   - `node: '10.16.0'`
+  - `styled-components: 5.1.0`
 
 ## Setup and Configurations
 Execute npm install to download all project dependencies.
