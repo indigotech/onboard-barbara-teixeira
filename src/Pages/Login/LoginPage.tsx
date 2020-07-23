@@ -5,7 +5,7 @@ class LoginPage extends React.Component {
   render() {
     return (
       <section>
-        <h1>Cadastre-se</h1>
+        <h1>Seja bem vindo a TaqTile!</h1>
         <LoginForm />
       </section>
     )
