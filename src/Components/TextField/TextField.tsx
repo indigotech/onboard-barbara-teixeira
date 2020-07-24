@@ -1,16 +1,16 @@
-import React from 'react'
+import React from "react"
 
 type Props = {
-  label: string,
-  fieldName: string,
+  label: string
+  fieldName: string
   fieldType: string
 }
 
 class TextField extends React.Component<Props> {
   public static defaultProps = {
-   fieldType: 'text'
+    fieldType: "text",
   }
-  render() {
+  render(): JSX.Element {
     return (
       <div>
         <label>{this.props.label}</label>
