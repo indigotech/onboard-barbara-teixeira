@@ -1,7 +1,7 @@
 import React from "react"
 
 type Props = {
-  buttonName: string
+  text: string
 }
 
 class Button extends React.Component<Props> {
@@ -9,7 +9,7 @@ class Button extends React.Component<Props> {
     type: "submit",
   }
   render(): JSX.Element {
-    return <button {...this.props}> {this.props.buttonName} </button>
+    return <button {...this.props}> {this.props.text} </button>
   }
 }
 

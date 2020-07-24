@@ -1,20 +1,18 @@
-import React from "react"
+import React, { InputHTMLAttributes } from "react"
 
 type Props = {
   label: string
-  fieldName: string
-  fieldType: string
-}
+} & InputHTMLAttributes<HTMLInputElement>
 
 class TextField extends React.Component<Props> {
   public static defaultProps = {
-    fieldType: "text",
+    type: "text",
   }
   render(): JSX.Element {
     return (
       <div>
         <label>{this.props.label}</label>
-        <input name={this.props.fieldName} type={this.props.fieldType} />
+        <input {...this.props} />
       </div>
     )
   }
