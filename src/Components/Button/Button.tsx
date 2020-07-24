@@ -1,13 +1,10 @@
-import React from "react"
+import React, { ButtonHTMLAttributes } from "react"
 
-type Props = {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   text: string
 }
 
-class Button extends React.Component<Props> {
-  public static defaultProps = {
-    type: "submit",
-  }
+class Button extends React.Component<ButtonProps> {
   render(): JSX.Element {
     return <button {...this.props}> {this.props.text} </button>
   }

@@ -1,13 +1,10 @@
 import React, { InputHTMLAttributes } from "react"
 
-type Props = {
+export interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string
-} & InputHTMLAttributes<HTMLInputElement>
+}
 
-class TextField extends React.Component<Props> {
-  public static defaultProps = {
-    type: "text",
-  }
+class TextField extends React.Component<TextFieldProps> {
   render(): JSX.Element {
     return (
       <div>

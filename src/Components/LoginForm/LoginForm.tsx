@@ -1,6 +1,6 @@
 import React from "react"
-import { TextField } from "../TextField"
-import { Button } from "../Button"
+import { TextField } from "@Components/TextField"
+import { Button } from "@Components/Button"
 
 class LoginForm extends React.Component {
   state = {
@@ -31,7 +31,7 @@ class LoginForm extends React.Component {
             value={this.state.password}
             onChange={this.changePassword}
           />
-          <Button text="Entrar" />
+          <Button text="Entrar" type="submit" />
         </form>
       </div>
     )

@@ -1,6 +1,6 @@
 import React from "react"
 import "./App.css"
-import { LoginPage } from "./Pages/Login"
+import { LoginPage } from "@Pages/Login"
 
 function App(): JSX.Element {
   return (
