@@ -1,6 +1,7 @@
 import React from "react"
 import { TextField } from "../TextField"
 import { Button } from "../Button"
+import { callbackify } from "util"
 
 class LoginForm extends React.Component {
   state = {
@@ -17,23 +18,19 @@ class LoginForm extends React.Component {
             <li key={error}>{error}</li>
           ))}
         </ul>
-        <form onSubmit={(event) => this.handleSubmit(event)}>
+        <form onSubmit={this.handleSubmit}>
           <TextField
             label="E-mail"
             name="email"
             value={this.state.email}
-            onChange={(event) => {
-              this.setState({ email: event.currentTarget.value })
-            }}
+            onChange={this.changeEmail}
           />
           <TextField
             label="Password"
             name="password"
             type="password"
             value={this.state.password}
-            onChange={(event) => {
-              this.setState({ password: event.currentTarget.value })
-            }}
+            onChange={this.changePassword}
           />
           <Button text="Entrar" />
         </form>
@@ -41,7 +38,14 @@ class LoginForm extends React.Component {
     )
   }
 
-  handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
+  private changeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ email: event.currentTarget.value })
+  }
+  private changePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ password: event.currentTarget.value })
+  }
+
+  private handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const errors = []
     if (this.state.password.length <= 0) {
@@ -51,6 +55,11 @@ class LoginForm extends React.Component {
     }
     if (!/\d/.test(this.state.password) || !/\w/.test(this.state.password)) {
       errors.push("Sua senha deve conter ao menos uma letra e um digito")
+    }
+    if (
+      !/^[\w]+([+-._][a-z0-9]*)*@[\w.-]+(\.[a-z]{2,3})+$/.test(this.state.email)
+    ) {
+      errors.push("Este não é um formato de e-mail válido")
     }
     this.setState({ errors })
   }
