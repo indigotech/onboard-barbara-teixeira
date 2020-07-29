@@ -6,8 +6,10 @@ import * as serviceWorker from "./serviceWorker"
 import { ApolloClient, InMemoryCache } from "@apollo/client"
 import { ApolloProvider } from "@apollo/client"
 
+const clientUrl = "https://tq-template-server-sample.herokuapp.com/graphql"
+
 const client = new ApolloClient({
-  uri: "https://tq-template-server-sample.herokuapp.com/graphql ",
+  uri: clientUrl,
   cache: new InMemoryCache(),
 })
 
