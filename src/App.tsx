@@ -1,14 +1,12 @@
 import React from "react"
-import logo from "./logo.svg"
 import "./App.css"
+import { LoginPage } from "@Pages/Login"
 
 function App(): JSX.Element {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        Hello World. =)
-      </header>
+      <header>Hello World. =)</header>
+      <LoginPage />
     </div>
   )
 }
