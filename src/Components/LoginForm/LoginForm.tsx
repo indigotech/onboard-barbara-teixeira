@@ -12,6 +12,7 @@ import {
   minLength,
 } from "src/Validators"
 import { Redirect } from "react-router"
+import { LoadingIndicator } from "../LoadingIndicator"
 
 const LOGIN_MUTATION = gql`
   mutation mutationLogin($email: String!, $password: String!) {
@@ -27,6 +28,7 @@ class LoginForm extends React.Component {
     password: "",
     errors: { login: "" },
     redirectToLastPath: false,
+    loading: false,
   }
 
   render(): JSX.Element {
@@ -54,7 +56,7 @@ class LoginForm extends React.Component {
             ]}
             onValueChange={this.changePassword}
           />
-          <Button text="Entrar" type="submit" />
+          <Button text="Entrar" type="submit" loading={this.state.loading} />
           <div>
             {this.state.errors.login && (
               <caption key={this.state.errors.login}>
@@ -79,6 +81,7 @@ class LoginForm extends React.Component {
     event.preventDefault()
     this.setState({
       errors: { login: "" },
+      loading: true,
     })
 
     client
@@ -96,6 +99,7 @@ class LoginForm extends React.Component {
       .catch((errorReason) => {
         this.setState({
           errors: { login: errorReason.message },
+          loading: false,
         })
       })
   }
