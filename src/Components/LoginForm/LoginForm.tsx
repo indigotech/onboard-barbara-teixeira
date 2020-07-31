@@ -11,6 +11,7 @@ import {
   required,
   minLength,
 } from "src/Validators"
+import { Redirect } from "react-router"
 
 const LOGIN_MUTATION = gql`
   mutation mutationLogin($email: String!, $password: String!) {
@@ -24,10 +25,12 @@ class LoginForm extends React.Component {
   state = {
     email: "",
     password: "",
-    errors: { email: ["is-empty"], password: ["is-empty"], login: "" },
+    errors: { login: "" },
+    redirectToLastPath: false,
   }
 
   render(): JSX.Element {
+    if (this.state.redirectToLastPath) return <Redirect to="/" />
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -37,7 +40,6 @@ class LoginForm extends React.Component {
             value={this.state.email}
             validations={[required, validEmail]}
             onValueChange={this.changeEmail}
-            onValidation={this.handleErrorChange}
           />
           <TextField
             label="Password"
@@ -51,9 +53,8 @@ class LoginForm extends React.Component {
               minLength(PASSWORD_LENGTH),
             ]}
             onValueChange={this.changePassword}
-            onValidation={this.handleErrorChange}
           />
-          <Button text="Entrar" type="submit" disabled={this.hasErrors()} />
+          <Button text="Entrar" type="submit" />
           <div>
             {this.state.errors.login && (
               <caption key={this.state.errors.login}>
@@ -66,13 +67,6 @@ class LoginForm extends React.Component {
     )
   }
 
-  private hasErrors = () => {
-    return (
-      this.state.errors.email.length > 0 ||
-      this.state.errors.password.length > 0
-    )
-  }
-
   private changeEmail = (value: string) => {
     this.setState({ email: value })
   }
@@ -81,14 +75,10 @@ class LoginForm extends React.Component {
     this.setState({ password: value })
   }
 
-  private handleErrorChange = (errors: string[], name: string) => {
-    this.setState({ errors: { ...this.state.errors, [name]: errors } })
-  }
-
   private handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     this.setState({
-      errors: { ...this.state.errors, login: "" },
+      errors: { login: "" },
     })
 
     client
@@ -102,9 +92,10 @@ class LoginForm extends React.Component {
       .then(({ data }) => {
         localStorage.setItem(AUTH_TOKEN, data.login.token)
       })
+      .then(() => this.setState({ redirectToLastPath: true }))
       .catch((errorReason) => {
         this.setState({
-          errors: { ...this.state.errors, login: errorReason.message },
+          errors: { login: errorReason.message },
         })
       })
   }
