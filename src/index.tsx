@@ -3,21 +3,10 @@ import ReactDOM from "react-dom"
 import "./index.css"
 import App from "./App"
 import * as serviceWorker from "./serviceWorker"
-import { ApolloClient, InMemoryCache } from "@apollo/client"
-import { ApolloProvider } from "@apollo/client"
-
-const clientUrl = "https://tq-template-server-sample.herokuapp.com/graphql"
-
-const client = new ApolloClient({
-  uri: clientUrl,
-  cache: new InMemoryCache(),
-})
 
 ReactDOM.render(
   <React.StrictMode>
-    <ApolloProvider client={client}>
-      <App />
-    </ApolloProvider>
+    <App />
   </React.StrictMode>,
   document.getElementById("root")
 )
