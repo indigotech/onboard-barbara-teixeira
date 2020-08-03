@@ -12,7 +12,6 @@ import {
   minLength,
 } from "src/Validators"
 import { Redirect } from "react-router"
-import { LoadingIndicator } from "../LoadingIndicator"
 
 const LOGIN_MUTATION = gql`
   mutation mutationLogin($email: String!, $password: String!) {
@@ -32,7 +31,9 @@ class LoginForm extends React.Component {
   }
 
   render(): JSX.Element {
-    if (this.state.redirectToLastPath) return <Redirect to="/" />
+    if (this.state.redirectToLastPath) {
+      return <Redirect to="/" />
+    }
     return (
       <div>
         <form onSubmit={this.handleSubmit}>

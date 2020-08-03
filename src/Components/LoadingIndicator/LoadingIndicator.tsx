@@ -7,16 +7,10 @@ export interface LoadingIndicatorProps {
   loading: boolean
 }
 
-class LoadingIndicator extends React.Component<LoadingIndicatorProps> {
-  render(): JSX.Element {
-    return (
-      <PuffLoader
-        size={this.props.size}
-        color={this.props.color}
-        loading={this.props.loading}
-      />
-    )
-  }
+const LoadingIndicator = (props: LoadingIndicatorProps): JSX.Element => {
+  return (
+    <PuffLoader size={props.size} color={props.color} loading={props.loading} />
+  )
 }
 
 export { LoadingIndicator }
