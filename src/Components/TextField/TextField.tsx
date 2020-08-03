@@ -4,7 +4,7 @@ export interface TextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string
   validations: ((val: string) => string)[]
   onValueChange: (value: string) => void
-  onValidation: (errors: string[], name: string) => void
+  onValidation?: (errors: string[], name: string) => void
 }
 
 class TextField extends React.Component<TextFieldProps> {
@@ -20,9 +20,9 @@ class TextField extends React.Component<TextFieldProps> {
           onBlur={this.callValidations}
         />
 
-        {this.state.errors.map((error) => (
-          <caption key={error}>{error}</caption>
-        ))}
+        {this.state.errors.length > 0 && (
+          <caption>{this.state.errors[0]}</caption>
+        )}
       </div>
     )
   }
@@ -33,7 +33,9 @@ class TextField extends React.Component<TextFieldProps> {
       .filter((error) => error.length > 0)
 
     this.setState({ errors })
-    this.props.onValidation(errors, event.currentTarget.name)
+    if (this.props.onValidation) {
+      this.props.onValidation(errors, event.currentTarget.name)
+    }
   }
 
   private handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
