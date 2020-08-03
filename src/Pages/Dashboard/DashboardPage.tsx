@@ -7,7 +7,7 @@ class DashboardPage extends React.Component<RouteComponentProps> {
     return (
       <section>
         <h1>Seja bem vindo a TaqTile!</h1>
-        <img src="https://http.cat/200"></img>
+        <img src="https://http.cat/200" alt="200-ok"></img>
         <button onClick={this.logout}>SAIR</button>
       </section>
     )
