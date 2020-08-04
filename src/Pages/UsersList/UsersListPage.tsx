@@ -94,29 +94,28 @@ class UsersListPage extends React.Component {
   private getUsers = () => {
     if (this.state.loading) return
 
-    this.setState({ loading: true }, () =>
-      client
-        .query({
-          query: LIST_USERS_QUERY,
-          variables: { offset: this.state.offset, limit: this.state.limit },
-        })
-        .then(
-          (
-            response: ApolloQueryResult<{
-              users: { count: number; nodes: User[] }
-            }>
-          ) => {
-            this.setState({
-              loading: false,
-              users: [
-                ...(this.state.users || []),
-                ...(response.data?.users.nodes || []),
-              ],
-              count: response.data?.users.count,
-            })
-          }
-        )
-    )
+    this.setState({ loading: true })
+    client
+      .query({
+        query: LIST_USERS_QUERY,
+        variables: { offset: this.state.offset, limit: this.state.limit },
+      })
+      .then(
+        (
+          response: ApolloQueryResult<{
+            users: { count: number; nodes: User[] }
+          }>
+        ) => {
+          this.setState({
+            loading: false,
+            users: [
+              ...(this.state.users || []),
+              ...(response.data?.users.nodes || []),
+            ],
+            count: response.data?.users.count,
+          })
+        }
+      )
   }
 }
 
