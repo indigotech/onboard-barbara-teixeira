@@ -34,6 +34,7 @@ class UsersListPage extends React.Component {
     offset: number
     limit: number
     count: number
+    feedbackMessage?: string
   } = {
     loading: false,
     offset: 0,
@@ -75,25 +76,28 @@ class UsersListPage extends React.Component {
             </tbody>
           </table>
         )}
+        {this.state.feedbackMessage}
         <Button
           text="Carregar mais..."
           loading={this.state.loading}
-          onClick={this.loadMore}
+          onClick={this.loadMoreUsers}
         />
       </section>
     )
   }
 
-  private loadMore = () => {
-    if (this.state.offset < this.state.count) {
-      this.setState({ offset: this.state.offset + this.state.limit })
+  private loadMoreUsers = () => {
+    const nextOffset = this.state.offset + this.state.limit
+
+    if (nextOffset < this.state.count) {
+      this.setState({ offset: nextOffset }, () => this.getUsers())
+    } else {
+      this.setState({ feedbackMessage: "Não há mais usuários para carregar." })
     }
-    this.getUsers()
   }
 
   private getUsers = () => {
     if (this.state.loading) return
-
     this.setState({ loading: true })
     client
       .query({
