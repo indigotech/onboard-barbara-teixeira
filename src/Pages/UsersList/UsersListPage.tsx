@@ -1,6 +1,4 @@
 import React from "react"
-import { client } from "src/client"
-import { gql, ApolloQueryResult } from "@apollo/client"
 import { Button } from "src/Components/Button"
 import {
   Table,
@@ -9,30 +7,7 @@ import {
   TableRow,
   TableCell,
 } from "src/Components/Table"
-
-const LIST_USERS_QUERY = gql`
-  query getUsers($offset: Int, $limit: Int) {
-    users(pageInfo: { offset: $offset, limit: $limit }) {
-      nodes {
-        id
-        name
-        phone
-        email
-        birthDate
-        role
-      }
-      count
-    }
-  }
-`
-interface User {
-  id: string
-  name: string
-  phone: string
-  email: string
-  birthDate: string
-  role: string
-}
+import { getUsers as getUsersQuery, User } from "src/Api/Queries/GetUsers"
 
 class UsersListPage extends React.Component {
   state: {
@@ -105,28 +80,18 @@ class UsersListPage extends React.Component {
 
   private getUsers = () => {
     if (this.state.loading) return
+    const { offset, limit } = this.state
     this.setState({ loading: true })
-    client
-      .query({
-        query: LIST_USERS_QUERY,
-        variables: { offset: this.state.offset, limit: this.state.limit },
+    getUsersQuery({ offset, limit }).then((response) => {
+      this.setState({
+        loading: false,
+        users: [
+          ...(this.state.users || []),
+          ...(response.data?.users.nodes || []),
+        ],
+        count: response.data?.users.count,
       })
-      .then(
-        (
-          response: ApolloQueryResult<{
-            users: { count: number; nodes: User[] }
-          }>
-        ) => {
-          this.setState({
-            loading: false,
-            users: [
-              ...(this.state.users || []),
-              ...(response.data?.users.nodes || []),
-            ],
-            count: response.data?.users.count,
-          })
-        }
-      )
+    })
   }
 }
 

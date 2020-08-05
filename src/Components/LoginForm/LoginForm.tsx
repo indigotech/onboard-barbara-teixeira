@@ -1,8 +1,6 @@
 import React from "react"
 import { TextField } from "src/Components/TextField"
 import { Button } from "src/Components/Button"
-import { gql } from "@apollo/client"
-import { client } from "src/client"
 import { AUTH_TOKEN, PASSWORD_LENGTH } from "../../constants"
 import {
   hasDigit,
@@ -12,14 +10,7 @@ import {
   minLength,
 } from "src/Validators"
 import { Redirect } from "react-router"
-
-const LOGIN_MUTATION = gql`
-  mutation mutationLogin($email: String!, $password: String!) {
-    login(data: { email: $email, password: $password }) {
-      token
-    }
-  }
-`
+import { login } from "src/Api/Mutations/Login"
 
 class LoginForm extends React.Component {
   state = {
@@ -80,21 +71,14 @@ class LoginForm extends React.Component {
 
   private handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    const { email, password } = this.state
     this.setState({
       errors: { login: "" },
       loading: true,
     })
-
-    client
-      .mutate({
-        mutation: LOGIN_MUTATION,
-        variables: {
-          email: this.state.email,
-          password: this.state.password,
-        },
-      })
+    login({ email, password })
       .then(({ data }) => {
-        localStorage.setItem(AUTH_TOKEN, data.login.token)
+        localStorage.setItem(AUTH_TOKEN, data?.login.token)
       })
       .then(() => this.setState({ redirectToLastPath: true }))
       .catch((errorReason) => {
