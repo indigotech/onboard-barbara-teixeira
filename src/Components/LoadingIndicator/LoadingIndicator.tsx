@@ -12,5 +12,4 @@ const LoadingIndicator = (props: LoadingIndicatorProps): JSX.Element => {
     <PuffLoader size={props.size} color={props.color} loading={props.loading} />
   )
 }
-
 export { LoadingIndicator }

@@ -2,6 +2,13 @@ import React from "react"
 import { client } from "src/client"
 import { gql, ApolloQueryResult } from "@apollo/client"
 import { Button } from "src/Components/Button"
+import {
+  Table,
+  TableBody,
+  TableHead,
+  TableRow,
+  TableCell,
+} from "src/Components/Table"
 
 const LIST_USERS_QUERY = gql`
   query getUsers($offset: Int, $limit: Int) {
@@ -53,28 +60,28 @@ class UsersListPage extends React.Component {
       <section>
         <h1> Lista de usuários </h1>
         {this.state.users && (
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Telefone</th>
-                <th>Data de nasc.</th>
-                <th>Função</th>
-              </tr>
-            </thead>
-            <tbody>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell type="th">ID</TableCell>
+                <TableCell type="th">Nome</TableCell>
+                <TableCell type="th">Telefone</TableCell>
+                <TableCell type="th">Data de Nascimento</TableCell>
+                <TableCell type="th">Função</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
               {this.state.users.map((user) => (
-                <tr key={user.id}>
-                  <td>{user.id}</td>
-                  <td>{user.name}</td>
-                  <td>{user.phone}</td>
-                  <td>{user.birthDate}</td>
-                  <td>{user.role}</td>
-                </tr>
+                <TableRow key={user.id}>
+                  <TableCell type="td">{user.id}</TableCell>
+                  <TableCell type="td">{user.name}</TableCell>
+                  <TableCell type="td">{user.phone}</TableCell>
+                  <TableCell type="td">{user.birthDate}</TableCell>
+                  <TableCell type="td">{user.role}</TableCell>
+                </TableRow>
               ))}
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
         )}
         {this.state.feedbackMessage}
         <Button
