@@ -8,8 +8,9 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 class Button extends React.Component<ButtonProps> {
   render(): JSX.Element {
+    const { onClick, type } = this.props
     return (
-      <button {...this.props}>
+      <button {...{ onClick, type }}>
         {this.props.loading ? (
           <LoadingIndicator size={25} loading={this.props.loading} />
         ) : (
